@@ -8,6 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MultithreadingApplication {
 
     public static void main(String[] args) {
+        // chi su dung thead de khoi tao
+        DemoThreadRun de = new DemoThreadRun();
+        de.start();
+        DemoThreadRun de1 = new DemoThreadRun();
+        de1.start();
+
+        // su dung Runnable de khoi tao co the mo comment phan duoi và comment phan tren de nhin ro hon
         RunnableDemo r1 = new RunnableDemo("Thread-number-1");
         r1.start();
 
@@ -16,7 +23,20 @@ public class MultithreadingApplication {
 
         RunnableDemo r3 = new RunnableDemo("Thread-number-3");
         r3.start();
+
     }
+
+    public static class DemoThreadRun extends Thread {
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 5; i ++) {
+                log.info("Thread only using thread: " + Thread.currentThread().getName() + "- thread processing " + i);
+            }
+            super.run();
+        }
+    }
+
 
     public static class RunnableDemo implements Runnable {
         private Thread t;
